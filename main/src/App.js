@@ -1,29 +1,51 @@
-import { registerMicroApps, start } from 'qiankun';
+import { registerMicroApps, start, loadMicroApp } from 'qiankun';
 import './App.less';
 
-function clickReact16() {
-  return window.history.pushState(null, null,'./react16');
+function clickApp(app) {
+  return window.history.pushState(null, null,`./${app}`);
 }
 function App() {
-  registerMicroApps([
-    {
-      name: 'react app', // app name registered
-      entry: '//localhost:7100',
-      container: '#subapp-container',
-      activeRule: '/react16',
-    }
-  ]);
+  // registerMicroApps([
+  //   {
+  //     name: 'app1', // app name registered
+  //     entry: '//localhost:7100',
+  //     container: '#subApp1',
+  //     activeRule: '/app1',
+  //   },
+  //   {
+  //     name: 'app2', // app name registered
+  //     entry: '//localhost:7102',
+  //     container: '#subApp2',
+  //     activeRule: '/app1',
+  //   }
+  // ]);
   
-  start();
+  // start();
+  loadMicroApp(
+    {
+      name: 'app1', // app name registered
+      entry: '//localhost:7100',
+      container: '#subApp1',
+      activeRule: '/app1',
+    },
+    {
+      name: 'app2', // app name registered
+      entry: '//localhost:7102',
+      container: '#subApp2',
+      activeRule: '/app1',
+    }
+  );
   
   return (
     <div className="App">
       <div className="mainapp">
         <div className="mainapp-main">
           <ul className="mainapp-sidemenu">
-            <li onClick={() => clickReact16()}>React16</li>
+            <li onClick={() => clickApp('app1')}>app1</li>
+            <li onClick={() => clickApp('app2')}>app2</li>
           </ul>
-          <main id="subapp-container"></main>
+          <main id="subApp1"></main>
+          <main id="subApp2"></main>
         </div>
       </div>
     </div>
